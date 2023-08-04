@@ -17,7 +17,7 @@ To set up the vm with Terraform
    ```bash
    export TF_VAR_google_credentials=your_service_account_directory
    ```
-   -PowerShell
+   - PowerShell
    ```bash
    $env:TF_VAR_google_credentials="your_service_account_directory"
    ```
