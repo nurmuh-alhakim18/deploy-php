@@ -41,44 +41,24 @@ You need to open SSH before running these commands
    ```bash
    sudo apt update
    ```
-2. Run the command
-   ```bash
-   sudo apt install php8.1
-   ```
+2. Install the packages needed
+   ````bash
+   sudo apt install php8.1-dom php8.1-curl php8.1-xml php8.1-zip php8.1-mysql php8.1-mbstring php8.1-bcmath
+   ``    
 3. Ensure you installed the correct php version
    ```bash
    php -v
    ```
 ### Install Nginx 1.18
-1. Check if apache2 has been installed
-   ```bash
-   which apache2
-   ```
-2. The command above should return blank line, if not then stop it
-   ```bash
-   sudo service apache2 stop
-   ```
-3. Remove and clean up apache2 packages
-   ```bash
-   sudo apt-get purge apache2 apache2-utils apache2-bin apache2.2-common
-   ```
-4. Clean up dependencies
-   ```bash
-   sudo apt-get autoremove
-   ```
-5. Run this command to make sure that apache has been removed
-   ```bash
-   sudo service apache2 start
-   ```
-6. Run the command
+1. Run the command
    ```bash
    sudo apt install nginx=1.18.*
    ```
-7. Ensure you installed the correct nginx version
+2. Ensure you installed the correct nginx version
    ```bash
    nginx -v
    ```
-8. Restart nginx in case nginx doesn't run properly
+3. Restart nginx in case nginx doesn't run properly
    ```bash
    sudo service nginx restart
    ```
@@ -162,11 +142,7 @@ You need to open SSH before running these commands
 2. Clone the app repository
    ```bash
    sudo git clone https://github.com/nasirkhan/laravel-starter.git
-   ```
-3. Install the extensions needed
-   ````bash
-   sudo apt install php8.1-dom php8.1-curl php8.1-xml php8.1-zip php8.1-mysql php8.1-mbstring php8.1-bcmath
-   ``    
+   ``` 
 4. Run the following command
    ```bash
    sudo chown -R $(whoami) laravel-starter
@@ -177,15 +153,18 @@ You need to open SSH before running these commands
    ```bash
    cd laravel-starter/
    ```
-6. Run this command
-   ```bash
-   composer install
-   ```
-7. Copy `.env.example` to `.env` with
+6. Copy `.env.example` to `.env` with
    ```bash
    cp .env.example .env
    ```
-8. Run command `vim .env` and press `i` to insert before the cursor. After that set these fields as below
+7. Run command `sudo vim .env` and press `i` to insert before the cursor. After that set these fields as below
+   ```bash
+   APP_NAME='Laravel Starter'
+   APP_ENV=development
+   APP_KEY=
+   APP_DEBUG=true
+   APP_URL=http://domain_or_ip
+   ```
    ```bash
    DB_CONNECTION=mysql
    DB_HOST=127.0.0.1
@@ -194,7 +173,11 @@ You need to open SSH before running these commands
    DB_USERNAME=admin
    DB_PASSWORD=admin
    ```
-9. Press `esc` to exit insert mode and type `:wq` to save and quit 
+8. Press `esc` to exit insert mode and type `:wq` to save and quit
+9. Run this command
+   ```bash
+   composer install
+   ``` 
 10. Run this command
     ```bash
     php artisan key:generate
@@ -211,39 +194,48 @@ You need to open SSH before running these commands
     ```bash
     server {
       listen 80;
-      listen [::]:80;
-      server_name http://34.101.120.146/;
-      root /var/www/laravel-starter/public;
-   
+      server_name server_domain_or_IP;
+      root /var/www/laravel_starter/public;
+
       add_header X-Frame-Options "SAMEORIGIN";
+      add_header X-XSS-Protection "1; mode=block";
       add_header X-Content-Type-Options "nosniff";
-   
-      index index.php;
-   
+
+      index index.html index.htm index.php;
+
       charset utf-8;
-   
+
       location / {
          try_files $uri $uri/ /index.php?$query_string;
       }
-   
+
       location = /favicon.ico { access_log off; log_not_found off; }
       location = /robots.txt  { access_log off; log_not_found off; }
-   
+
       error_page 404 /index.php;
-   
+
       location ~ \.php$ {
-         fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
+         fastcgi_pass unix:/var/run/php/php8.1-fpm.sock;
+         fastcgi_index index.php;
          fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
          include fastcgi_params;
       }
-   
+
       location ~ /\.(?!well-known).* {
          deny all;
       }
     }
     ```
 14. Press `esc` to exit insert mode and type `:wq` to save and quit 
-15. Restart nginx
+15. Link to `sites-enabled`
     ```bash
-    sudo systemctl reboot nginx
+    sudo ln -s /etc/nginx/sites-available/deployphp.net /etc/nginx/sites-enabled/
+    ```
+16. Confirm the configuration
+    ```bash
+    sudo nginx -t
+    ```
+15. Apply the changes by reloading nginx
+    ```bash
+    sudo systemctl reload nginx
     ```
