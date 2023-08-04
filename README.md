@@ -200,9 +200,9 @@ You need to open SSH before running these commands
     php artisan key:generate
     ```
 11. Migrate table from laravel to mariadb
-   ```bash
-   php artisan migrate
-   ```
+    ```bash
+    php artisan migrate
+    ```
 12. Move directory
     ```bash
     cd /etc/nginx/sites-available/
