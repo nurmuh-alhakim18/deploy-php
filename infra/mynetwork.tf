@@ -27,9 +27,9 @@ resource "google_compute_firewall" "my_firewall" {
 }
 
 # Create the vm instance
-module "mynet-id" {
+module "my-instance" {
   source           = "./instance"
-  instance_name    = "mynet-id"
+  instance_name    = "my-instance"
   instance_zone    = "asia-southeast2-a"
   instance_network = google_compute_network.my_network.id
 }

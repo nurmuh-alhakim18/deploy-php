@@ -7,7 +7,7 @@ resource "google_compute_instance" "vm_instance" {
     subnetwork = "my-subnet-01"
     
     access_config {
-      
+      nat_ip = google_compute_address.my_static_ip.address
     }
   }
 
@@ -22,4 +22,9 @@ resource "google_compute_disk" "vm_disk" {
   name = "${var.instance_name}"
   size = "30"
   zone = "asia-southeast2-a"
+}
+
+resource "google_compute_address" "my_static_ip" {
+  name   = "my-static-ip-address"
+  region = "asia-southeast2"
 }

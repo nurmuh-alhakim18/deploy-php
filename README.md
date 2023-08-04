@@ -1,6 +1,6 @@
 # DevOps Assesment
 
-## 1. Specification and OS Server
+## 1. Specification and OS Server on GCP
 - Machine Type: e2-small
 - CPU: 2 vCPU
 - Memory: 2 GB memory
