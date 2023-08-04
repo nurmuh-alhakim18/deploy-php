@@ -31,17 +31,21 @@ To set up the vm with Terraform
    ```
 5. Apply the resources that will be created
    ```bash
-   terraform apply --auto-approve
+   terraform apply
    ```
 
 ## 2. Setting up server environment 
 You need to open SSH before running these commands
-### Install PHP 8.1 
-1. Run the command
+### Install PHP 8.1
+1. Update system
    ```bash
-   sudo apt install php8.1 
+   sudo apt update
    ```
-2. Ensure you installed the correct php version
+2. Run the command
+   ```bash
+   sudo apt install php8.1
+   ```
+3. Ensure you installed the correct php version
    ```bash
    php -v
    ```
@@ -99,17 +103,14 @@ You need to open SSH before running these commands
    ```bash
    sudo mariadb
    ```
-5. Flush all privileges
-   ```bash
-   flush privileges;
-   ```
-6. Configure the database
+5. Configure the database
    ```bash
    CREATE USER 'admin'@'localhost' IDENTIFIED BY 'admin';
-   CREATE DATABASE deploydb;
-   GRANT ALL PRIVILEGES ON *.* to 'admin'@'localhost';
+   CREATE DATABASE deploy_db;
+   GRANT ALL ON deploy_db.* TO 'admin'@'localhost';
+   FLUSH PRIVILEGES;
    ```
-7. Exit MariaDB
+6. Exit MariaDB
    ```bash
    QUIT;
    ```
@@ -153,3 +154,96 @@ You need to open SSH before running these commands
    ```bash
    npm -v
    ```
+## 3. App deployment
+1. Move to directory as below
+   ```bash
+   cd /var/www
+   ```
+2. Clone the app repository
+   ```bash
+   sudo git clone https://github.com/nasirkhan/laravel-starter.git
+   ```
+3. Install the extensions needed
+   ````bash
+   sudo apt install php8.1-dom php8.1-curl php8.1-xml php8.1-zip php8.1-mysql php8.1-mbstring php8.1-bcmath
+   ``    
+4. Run the following command
+   ```bash
+   sudo chown -R $(whoami) laravel-starter
+   sudo chgrp -R www-data /var/www/laravel-starter
+   sudo chmod -R 775 /var/www/laravel-starter/storage
+   ```
+5. Move to the cloned directory
+   ```bash
+   cd laravel-starter/
+   ```
+6. Run this command
+   ```bash
+   composer install
+   ```
+7. Copy `.env.example` to `.env` with
+   ```bash
+   cp .env.example .env
+   ```
+8. Run command `vim .env` and press `i` to insert before the cursor. After that set these fields as below
+   ```bash
+   DB_CONNECTION=mysql
+   DB_HOST=127.0.0.1
+   DB_PORT=3306
+   DB_DATABASE=deploy_db
+   DB_USERNAME=admin
+   DB_PASSWORD=admin
+   ```
+9. Press `esc` to exit insert mode and type `:wq` to save and quit 
+10. Run this command
+    ```bash
+    php artisan key:generate
+    ```
+11. Migrate table from laravel to mariadb
+   ```bash
+   php artisan migrate
+   ```
+12. Move directory
+    ```bash
+    cd /etc/nginx/sites-available/
+    ```
+13. Run `sudo vim deployphp.net` and press `i` to input this configuration
+    ```bash
+    server {
+      listen 80;
+      listen [::]:80;
+      server_name http://34.101.120.146/;
+      root /var/www/laravel-starter/public;
+   
+      add_header X-Frame-Options "SAMEORIGIN";
+      add_header X-Content-Type-Options "nosniff";
+   
+      index index.php;
+   
+      charset utf-8;
+   
+      location / {
+         try_files $uri $uri/ /index.php?$query_string;
+      }
+   
+      location = /favicon.ico { access_log off; log_not_found off; }
+      location = /robots.txt  { access_log off; log_not_found off; }
+   
+      error_page 404 /index.php;
+   
+      location ~ \.php$ {
+         fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
+         fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+         include fastcgi_params;
+      }
+   
+      location ~ /\.(?!well-known).* {
+         deny all;
+      }
+    }
+    ```
+14. Press `esc` to exit insert mode and type `:wq` to save and quit 
+15. Restart nginx
+    ```bash
+    sudo systemctl reboot nginx
+    ```
