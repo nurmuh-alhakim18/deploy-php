@@ -243,3 +243,4 @@ You need to open SSH before running these commands
     ```bash
     sudo systemctl reload nginx
     ```
+7. Check your deployed site by using server domain or IP you have been set in nginx
