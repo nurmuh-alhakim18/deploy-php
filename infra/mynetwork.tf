@@ -1,4 +1,3 @@
-# Add a firewall rule to allow run on port 8000
 resource "google_compute_firewall" "my_server_firewall" {
   name = "my-allow-server-firewall"
   network = "default"
