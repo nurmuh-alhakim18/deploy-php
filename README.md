@@ -42,9 +42,9 @@ You need to open SSH before running these commands
    sudo apt update
    ```
 2. Install the packages needed
-   ````bash
+   ```bash
    sudo apt install php8.1-dom php8.1-curl php8.1-xml php8.1-zip php8.1-mysql php8.1-mbstring php8.1-bcmath php8.1-cli unzip
-   ``    
+   ```    
 3. Ensure you installed the correct php version
    ```bash
    php -v
@@ -131,6 +131,7 @@ You need to open SSH before running these commands
    npm -v
    ```
 ## 3. App deployment
+### Local run
 1. Move to directory as below
    ```bash
    cd /var/www
@@ -186,11 +187,16 @@ You need to open SSH before running these commands
     ```bash
     php artisan storage:link
     ```
-13. Move directory
+13. Test the server without nginx
+    ```bash
+    php artisan server --host=0.0.0.0
+    ```
+### Configuring Nginx
+1. Move directory
     ```bash
     cd /etc/nginx/sites-available/
     ```
-14. Run `sudo vim default` and press `gg` to move to the first line, then type `dG` to clear all text. After that press `i` to input this configuration
+2. Run `sudo vim default` and press `gg` to move to the first line, then type `dG` to clear all text. After that press `i` to input this configuration
     ```bash
     server {
       listen 80;
@@ -226,19 +232,19 @@ You need to open SSH before running these commands
       }
     }
     ```
-15. Press `esc` to exit insert mode and type `:wq` to save and quit 
-16. Link to `sites-enabled`
+3. Press `esc` to exit insert mode and type `:wq` to save and quit 
+4. Link to `sites-enabled`
     ```bash
     sudo rm /etc/nginx/sites-enabled/default
     ```
     ```bash
     sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
     ```
-17. Confirm the configuration that are no error found
+5. Confirm the configuration that are no error found
     ```bash
     sudo nginx -t
     ```
-18. Apply the changes by reloading nginx
+6. Apply the changes by reloading nginx
     ```bash
     sudo systemctl reload nginx
     ```
