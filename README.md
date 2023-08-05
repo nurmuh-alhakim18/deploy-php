@@ -12,7 +12,11 @@ To set up the vm with Terraform
    ```bash
    cd infra
    ```
-2. Set environment variable to enable Terraform access to cloud using service account
+2. Generate service account key from your project, refer to this link:
+   ```bash
+   https://cloud.google.com/iam/docs/keys-create-delete
+   ```
+3. Set environment variable to enable Terraform access to cloud using service account
    - Linux
    ```bash
    export TF_VAR_google_credentials=your_service_account_directory
@@ -21,19 +25,19 @@ To set up the vm with Terraform
    ```bash
    $env:TF_VAR_google_credentials="your_service_account_directory"
    ```
-3. Initialize everything needed by Terraform to run
+4. Initialize everything needed by Terraform to run
    ```bash
    terraform init
    ```
-4. Check the resources that will be created
+5. Check the resources that will be created
    ```bash
    terraform plan
    ```
-5. Apply the resources that will be created
+6. Apply the resources that will be created
    ```bash
    terraform apply
    ```
-
+   Run `terraform apply` until there is no change made by terraform, it takes approximately 3 times
 ## 2. Setting up server environment 
 You need to open SSH before running these commands
 ### Install PHP 8.1
@@ -71,6 +75,7 @@ You need to open SSH before running these commands
    ```bash
    systemctl status mariadb
    ```
+   To exit press `ctrl + c`
 3. To protect the database run this command, you will be asked to configure few things
    ```bash
    sudo mysql_secure_installation
