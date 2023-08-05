@@ -149,7 +149,7 @@ You need to open SSH before running these commands
    ```bash
    sudo chown -R $(whoami) laravel-starter
    sudo chgrp -R www-data /var/www/laravel-starter
-   sudo chmod -R 775 /var/www/laravel-starter/storage
+   sudo chmod -R 777 /var/www/laravel-starter/storage
    ```
 5. Move to the cloned directory
    ```bash
@@ -199,7 +199,7 @@ You need to open SSH before running these commands
     server {
       listen 80;
       server_name server_domain_or_IP;
-      root /var/www/laravel_starter/public;
+      root /var/www/laravel-starter/public;
 
       add_header X-Frame-Options "SAMEORIGIN";
       add_header X-XSS-Protection "1; mode=block";
