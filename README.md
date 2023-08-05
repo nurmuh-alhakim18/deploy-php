@@ -43,7 +43,7 @@ You need to open SSH before running these commands
    ```
 2. Install the packages needed
    ````bash
-   sudo apt install php8.1-dom php8.1-curl php8.1-xml php8.1-zip php8.1-mysql php8.1-mbstring php8.1-bcmath
+   sudo apt install php8.1-dom php8.1-curl php8.1-xml php8.1-zip php8.1-mysql php8.1-mbstring php8.1-bcmath php8.1-cli unzip
    ``    
 3. Ensure you installed the correct php version
    ```bash
@@ -65,7 +65,7 @@ You need to open SSH before running these commands
 ### Install MariaDB 10.6
 1. Run the command to install
    ```bash
-   sudo apt install mariadb-server
+   sudo apt install mariadb-server mariadb-client
    ```
 2. Check its status
    ```bash
@@ -95,22 +95,18 @@ You need to open SSH before running these commands
    QUIT;
    ```
 ### Install Composer 2.2
-1. Install the required packages
-   ```bash
-   sudo apt install php-cli unzip
-   ```
-2. To install specific version, run these commands
+1. To install specific version, run these commands
    ```bash
    php -r "copy ('https://getcomposer.org/installer', 'composer-setup.php');"
    ```
    ```bash
    php composer-setup.php --version=2.2.21
    ```
-3. Move `composer.phar`
+2. Move `composer.phar`
    ```bash
    sudo mv composer.phar /usr/local/bin/composer
    ```
-4. Check the composer
+3. Check the composer
    ```bash
    composer -v
    ```
@@ -190,7 +186,7 @@ You need to open SSH before running these commands
     ```bash
     cd /etc/nginx/sites-available/
     ```
-13. Run `sudo vim deployphp.net` and press `i` to input this configuration
+13. Run `sudo vim default` and press `gg` to move to the first line, then type `dG` to clear all text. After that press `i` to input this configuration
     ```bash
     server {
       listen 80;
@@ -201,7 +197,7 @@ You need to open SSH before running these commands
       add_header X-XSS-Protection "1; mode=block";
       add_header X-Content-Type-Options "nosniff";
 
-      index index.html index.htm index.php;
+      index index.html index.htm index.nginx-debian.html index.php;
 
       charset utf-8;
 
@@ -229,9 +225,12 @@ You need to open SSH before running these commands
 14. Press `esc` to exit insert mode and type `:wq` to save and quit 
 15. Link to `sites-enabled`
     ```bash
-    sudo ln -s /etc/nginx/sites-available/deployphp.net /etc/nginx/sites-enabled/
+    sudo rm /etc/nginx/sites-enabled/default
     ```
-16. Confirm the configuration
+    ```bash
+    sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
+    ```
+16. Confirm the configuration that are no error found
     ```bash
     sudo nginx -t
     ```

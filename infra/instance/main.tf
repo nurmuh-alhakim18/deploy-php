@@ -2,9 +2,11 @@ resource "google_compute_instance" "vm_instance" {
   name = "${var.instance_name}"
   zone = "${var.instance_zone}"
   machine_type = "${var.instance_type}"
+
+  tags = ["web-server"]
+
   network_interface {
     network = "${var.instance_network}"
-    subnetwork = "my-subnet-01"
     
     access_config {
       nat_ip = google_compute_address.my_static_ip.address
