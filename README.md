@@ -180,13 +180,17 @@ You need to open SSH before running these commands
     ```
 11. Migrate table from laravel to mariadb
     ```bash
-    php artisan migrate
+    php artisan migrate --seed
     ```
-12. Move directory
+12. Link storage directory
+    ```bash
+    php artisan storage:link
+    ```
+13. Move directory
     ```bash
     cd /etc/nginx/sites-available/
     ```
-13. Run `sudo vim default` and press `gg` to move to the first line, then type `dG` to clear all text. After that press `i` to input this configuration
+14. Run `sudo vim default` and press `gg` to move to the first line, then type `dG` to clear all text. After that press `i` to input this configuration
     ```bash
     server {
       listen 80;
@@ -222,19 +226,19 @@ You need to open SSH before running these commands
       }
     }
     ```
-14. Press `esc` to exit insert mode and type `:wq` to save and quit 
-15. Link to `sites-enabled`
+15. Press `esc` to exit insert mode and type `:wq` to save and quit 
+16. Link to `sites-enabled`
     ```bash
     sudo rm /etc/nginx/sites-enabled/default
     ```
     ```bash
     sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
     ```
-16. Confirm the configuration that are no error found
+17. Confirm the configuration that are no error found
     ```bash
     sudo nginx -t
     ```
-15. Apply the changes by reloading nginx
+18. Apply the changes by reloading nginx
     ```bash
     sudo systemctl reload nginx
     ```
