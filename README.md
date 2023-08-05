@@ -194,7 +194,7 @@ You need to open SSH before running these commands
     ```bash
     cd /etc/nginx/sites-available/
     ```
-2. Run `sudo vim default` and press `gg` to move to the first line, then type `dG` to clear all text. After that press `i` to input this configuration
+2. Run `sudo vim deployphp.net` and press `gg` to move to the first line, then type `dG` to clear all text. After that press `i` to input this configuration
     ```bash
     server {
       listen 80;
@@ -233,10 +233,7 @@ You need to open SSH before running these commands
 3. Press `esc` to exit insert mode and type `:wq` to save and quit 
 4. Link to `sites-enabled`
     ```bash
-    sudo rm /etc/nginx/sites-enabled/default
-    ```
-    ```bash
-    sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
+    sudo ln -s /etc/nginx/sites-available/deployphp.net /etc/nginx/sites-enabled/
     ```
 5. Confirm the configuration that are no error found
     ```bash
