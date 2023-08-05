@@ -148,7 +148,11 @@ You need to open SSH before running these commands
 4. Run the following command
    ```bash
    sudo chown -R $(whoami) laravel-starter
+   ```
+   ```bash
    sudo chgrp -R www-data /var/www/laravel-starter
+   ```
+   ```bash
    sudo chmod -R 777 /var/www/laravel-starter/storage
    ```
 5. Move to the cloned directory
@@ -167,6 +171,15 @@ You need to open SSH before running these commands
    DB_DATABASE=deploy_db
    DB_USERNAME=admin
    DB_PASSWORD=admin
+   ```
+   Change mail configuration. I used `mailtrap.io` and this is the example I copied for PHP 8
+   ```bash
+   MAIL_MAILER=smtp
+   MAIL_HOST=sandbox.smtp.mailtrap.io
+   MAIL_PORT=2525
+   MAIL_USERNAME=will-be-some-chars
+   MAIL_PASSWORD=will-be-some-chars
+   MAIL_ENCRYPTION=tls
    ```
 8. Press `esc` to exit insert mode and type `:wq` to save and quit
 9. Run this command
@@ -194,7 +207,7 @@ You need to open SSH before running these commands
     ```bash
     cd /etc/nginx/sites-available/
     ```
-2. Run `sudo vim deployphp.net` and press `gg` to move to the first line, then type `dG` to clear all text. After that press `i` to input this configuration
+2. Run `sudo vim deployphp.net`. After that press `i` to input this configuration
     ```bash
     server {
       listen 80;
