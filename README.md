@@ -136,7 +136,7 @@ You need to open SSH before running these commands
    npm -v
    ```
 ## 3. App deployment
-### Local run
+### Local VM run
 1. Move to directory as below
    ```bash
    cd /var/www
@@ -187,7 +187,7 @@ You need to open SSH before running these commands
     ```
 13. Test the server without nginx
     ```bash
-    php artisan server --host=0.0.0.0
+    php artisan serve --host=0.0.0.0
     ```
 ### Configuring Nginx
 1. Move directory
