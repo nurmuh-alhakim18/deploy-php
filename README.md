@@ -156,13 +156,6 @@ You need to open SSH before running these commands
    ```
 7. Run command `sudo vim .env` and press `i` to insert before the cursor. After that set these fields as below
    ```bash
-   APP_NAME='Laravel Starter'
-   APP_ENV=development
-   APP_KEY=
-   APP_DEBUG=true
-   APP_URL=http://domain_or_ip
-   ```
-   ```bash
    DB_CONNECTION=mysql
    DB_HOST=127.0.0.1
    DB_PORT=3306
