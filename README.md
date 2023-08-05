@@ -47,7 +47,7 @@ You need to open SSH before running these commands
    ```
 2. Install the packages needed
    ```bash
-   sudo apt install php8.1-dom php8.1-curl php8.1-xml php8.1-zip php8.1-mysql php8.1-mbstring php8.1-bcmath php8.1-cli unzip
+   sudo apt install php8.1-dom php8.1-curl php8.1-xml php8.1-zip php8.1-mysql php8.1-fpm php8.1-mbstring php8.1-bcmath php8.1-cli unzip
    ```    
 3. Ensure you installed the correct php version
    ```bash
