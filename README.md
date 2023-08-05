@@ -155,6 +155,9 @@ You need to open SSH before running these commands
    ```bash
    sudo chmod -R 777 /var/www/laravel-starter/storage
    ```
+   ```bash
+   sudo chmod -R 777 /var/www/laravel-starter/bootstrap/cache/
+   ```
 5. Move to the cloned directory
    ```bash
    cd laravel-starter/
@@ -198,7 +201,11 @@ You need to open SSH before running these commands
     ```bash
     php artisan storage:link
     ```
-13. Test the server without nginx
+13. Insert data
+    ```bash
+    php artisan starter:insert-demo-data --fresh
+    ```
+14. Test the server without nginx
     ```bash
     php artisan serve --host=0.0.0.0
     ```
