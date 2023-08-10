@@ -1,4 +1,4 @@
-# DevOps Assesment
+# Deploy PHP App
 
 ## 1. Specification and OS Server on GCP
 - Machine Type: e2-small
