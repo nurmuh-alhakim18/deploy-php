@@ -15,5 +15,5 @@ module "my-instance" {
   instance_name    = "my-instance"
   instance_zone    = "asia-southeast2-a"
   instance_network = "default"
-  disk_size        = "30"
+  disk_size        = "20"
 }

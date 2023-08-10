@@ -4,7 +4,7 @@
 - Machine Type: e2-small
 - CPU: 2 vCPU
 - Memory: 2 GB memory
-- Storage: 30 GB
+- Storage: 20 GB
 - OS: Ubuntu 22.04 LTS
 
 To set up the vm with Terraform
@@ -114,26 +114,6 @@ You need to open SSH before running these commands
 3. Check the composer
    ```bash
    composer -v
-   ```
-### Install NPM
-1. Obtain the file from the source
-   ```bash
-   curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
-   ```
-2. Install it
-   ```bash
-   sudo apt-get install -y nodejs
-   ```
-3. Ensure that the latest version of NPM is installed
-   ```bash
-   sudo npm install -g npm@latest
-   ```
-4. Check node or npm version
-   ```bash
-   node -v
-   ```
-   ```bash
-   npm -v
    ```
 ## 3. App deployment
 ### Local VM run
