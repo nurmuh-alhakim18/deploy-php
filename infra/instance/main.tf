@@ -22,7 +22,7 @@ resource "google_compute_instance" "vm_instance" {
 
 resource "google_compute_disk" "vm_disk" {
   name = "${var.instance_name}"
-  size = "30"
+  size = "${var.disk_size}"
   zone = "asia-southeast2-a"
 }
 

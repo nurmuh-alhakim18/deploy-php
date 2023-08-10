@@ -13,3 +13,7 @@ variable "instance_network" {
 variable "instance_type" {
   default = "e2-small"
 }
+
+variable "disk_size" {
+  
+}
